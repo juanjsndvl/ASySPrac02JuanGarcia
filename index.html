@@ -1,0 +1,907 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>P02: Se&ntilde;ales en Tiempo Cont&iacute;nuo</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-02"><meta name="DC.source" content="ASySPrac02JuanGarcia.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>P02: Se&ntilde;ales en Tiempo Cont&iacute;nuo</h1><!--introduction--><p><img vspace="5" hspace="5" src="UPIITA.PNG" alt=""> </p><p><b>UNIDAD PROFESIONAL INTERDISCIPLINARIA EN INGENIER&Iacute;A Y TECNOLOG&Iacute;AS AVANZADAS</b></p><p><b>An&aacute;lisis de Se&ntilde;ales y Sistemas</b></p><p>Autor: Garc&iacute;a Sandoval Juan Jes&uacute;s 2MV1</p><p>Profesor: Dr Rafael Mart&iacute;nez Mart&iacute;nez</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Objetivos</a></li><li><a href="#2">Introducci&oacute;n</a></li><li><a href="#3">1</a></li><li><a href="#5">2</a></li><li><a href="#7">3</a></li><li><a href="#10">4</a></li><li><a href="#29">5</a></li><li><a href="#36">6</a></li><li><a href="#46">7</a></li><li><a href="#51">Ap&eacute;ndice</a></li><li><a href="#57">Referencias</a></li></ul></div><h2>Objetivos<a name="1"></a></h2><p>Como objetivos principales de la pr&aacute;ctica se pretende implementar la manipulaci&oacute;n b&aacute;sica de MATLAB, as&iacute; como la graficaci&oacute;n de se&ntilde;ales reales y complejas continuas, la transformaci&oacute;n de se&ntilde;ales continuas (escalamientos y traslaciones) y el c&aacute;lculo de energ&iacute;a y potencia de se&ntilde;ales continuas</p><h2>Introducci&oacute;n<a name="2"></a></h2><p>En la presente pr&aacute;ctica se desarrollar&aacute; una p&aacute;gina web, en lenguaje html utilizando MATLAB.</p><p>MATLAB es un software matem&aacute;tico desarrollado por MathWorks y su nombre proviene de la Abreviaci&oacute;n de MATrix LABoratory.</p><p>MATLAB surgi&oacute; a partir que Cleve Moler, co-fundador de MathWorks, matem&aacute;tico estadounidense y programador de ordenador que se especializa en an&aacute;lisis num&eacute;rico, desarroll&oacute; un paquete de inform&aacute;tica num&eacute;rico, para dar su alumnado en la Universidad de Nuevo M&eacute;xico, surgiendo en 1984 la primera versi&oacute;n estable del software.</p><p>MATLAB implementa un lenguaje de programaci&oacute;n propio (lenguaje M) para desarrollar aplicaciones y realizar c&aacute;lculos de an&aacute;lisis num&eacute;rico.</p><p>MATLAB es un software muy &uacute;til para la resoluci&oacute;n de problemas matem&aacute;ticos, sin embargo existen otras alternativas muy similares a MATLAB, por ejemplo <a href="https://www.gnu.org/software/octave/">Octave</a> que se considera como la versi&oacute;n libre de MATLAB, <a href="https://www.maplesoft.com/products/maple/">Maple</a> que es una alternativa muy empleada, y por parte de Wolfram est&aacute; <a href="https://www.wolfram.com/mathematica/">Mathematica</a> y <a href="https://www.wolframalpha.com/">WolframAlpha</a> esta &uacute;ltima es una plataforma en linea que carece de c&oacute;digo riguroso por lo que es muy senillo de usar, pero tambi&eacute;n carece de caracter&iacute;sticas como MATLAB o Mathematica.</p><h2>1<a name="3"></a></h2><p>Se cre&oacute; una funci&oacute;n llamada <i>fun1</i> la cual recibe dos parametros <img src="ASySPrac02JuanGarcia_eq08589834809570054062.png" alt="$\omega$"> y <img src="ASySPrac02JuanGarcia_eq05508344529756732484.png" alt="$a$"> para entonces regesar la evaluaci&oacute;n <img src="ASySPrac02JuanGarcia_eq02558949450631151249.png" alt="$F(\omega)=\frac{a}{a^2+\omega^2}$"> como se muestra a continuaci&oacute;n:</p><p>Proponrmos <img src="ASySPrac02JuanGarcia_eq05508344529756732484.png" alt="$a$"> y <img src="ASySPrac02JuanGarcia_eq08589834809570054062.png" alt="$\omega$"> con los siguientes valores:</p><pre class="codeinput">a=1;
+w=2;
+F(w)=fun1(a,w);
+</pre><p>El c&oacute;digo de la funci&oacute;n <i>fun1</i> se encuentra en el ap&eacute;ndice 1</p><h2>2<a name="5"></a></h2><p>Se crear&aacute; una funci&oacute;n que nos permita graficar con un estilo predefinido. En este caso se graficar&aacute; el ejemplo del inciso anterior <img src="ASySPrac02JuanGarcia_eq02558949450631151249.png" alt="$F(\omega)=\frac{a}{a^2+\omega^2}$">. La funci&oacute;n se invoca de la siguiente manera:  <i>Figura(valores en x, valores en y, 't&iacute;tulo del gr&aacute;fico')</i></p><pre class="codeinput">w=-2:0.001:2;
+a=1;
+f=@(w) a./(a^2+w.^2);
+Figura(w,f(w),<span class="string">'F(w)'</span>)
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_01.png" alt=""> <p>El c&oacute;digo de la funci&oacute;n <i>Figura</i> se encuentra en el ap&eacute;ndice 2.</p><h2>3<a name="7"></a></h2><p>Se crear&aacute; una funci&oacute;n que gr&aacute;fique funciones de <img src="ASySPrac02JuanGarcia_eq07287922491706758619.png" alt="$f:R\rightarrow R^2$"> con un estilo predefinido. Para este caso se graficar&aacute; el espectro de magnitud y de fase de la transformada de Fourier de la funci&oacute;n <img src="ASySPrac02JuanGarcia_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$">.</p><p>Tenemos entonces que</p><p><img src="ASySPrac02JuanGarcia_eq03118401424537540462.png" alt="$$f(t)=e^{-2t}u(t)\Longleftrightarrow X(\omega)=\frac{1}{2+j\omega}$$"></p><p>pasando a su forma polar:</p><p><img src="ASySPrac02JuanGarcia_eq06656713231791569140.png" alt="$$X(\omega)=\frac{1}{\sqrt{4+\omega^2}}e^{-jtan^{-1}(\frac{\omega}{2})}$$"></p><p>por lo tanto:</p><p><img src="ASySPrac02JuanGarcia_eq13273457624444566775.png" alt="$|X(\omega)|=\frac{1}{\sqrt{4+\omega^2}}\:\:\:y\:\:\:\angle X(\omega)=-tan^{-1}(\frac{\omega}{2})$"></p><p>Entonces podemos emplear la funci&oacute;n para graficar el espectro de fase y de magnitud, donde</p><pre class="codeinput">clear <span class="string">all</span>
+w=-10:0.01:10;
+f=@(w) 1./sqrt(4+w.^2);
+g=@(w) (-1).*atan(w./2);
+Figura2(w,f(w),g(w))
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_02.png" alt=""> <p>De igual manera podemos graficar la funci&oacute;n original <img src="ASySPrac02JuanGarcia_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> con la funci&oacute;n hecha en el punto 2:</p><pre class="codeinput">clear <span class="string">all</span>
+t=-10:0.01:10;
+f=@(t) exp(-2.*t);
+Figura(t,f(t),<span class="string">'f(t)'</span>)
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_03.png" alt=""> <p>El c&oacute;digo de la funci&oacute;n <i>Figura</i> y el c&oacute;digo de la funci&oacute;n <i>Figura2</i> se encuentra en el ap&eacute;ndice 2 y en el ap&eacute;ndice 3 respectivamente.</p><h2>4<a name="10"></a></h2><p><b>M1.1 Inline Functions</b></p><p>definimos la funci&oacute;n <img src="ASySPrac02JuanGarcia_eq09570209403238261006.png" alt="$f(t)=e^{-t}cos(2\pi t)$">:</p><pre class="codeinput">clear <span class="string">all</span>
+f=@(t) exp(-t).*cos(2*pi*t);
+</pre><p>evaluamos la funci&oacute;n en cero:</p><pre class="codeinput">f(0)
+</pre><pre class="codeoutput">
+ans =
+
+     1
+
+</pre><p>tambi&eacute;n podemos evaluar la funci&oacute;n en un vector definido:</p><pre class="codeinput">t=(-2:2);
+f(t)
+</pre><pre class="codeoutput">
+ans =
+
+    7.3891    2.7183    1.0000    0.3679    0.1353
+
+</pre><p>Finalmente podemos graficar <img src="ASySPrac02JuanGarcia_eq09478123530129115431.png" alt="$f(t)$"> contra <img src="ASySPrac02JuanGarcia_eq12656067504604335951.png" alt="$t$">:</p><pre class="codeinput">close <span class="string">all</span>
+plot(t,f(t));
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'f(t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_04.png" alt=""> <p>Lo que nos arroja una gr&aacute;fica poco entendible, asi que daremos m&aacute;s elementos al vector <img src="ASySPrac02JuanGarcia_eq12656067504604335951.png" alt="$t$"> y graficaremos de nuevo:</p><pre class="codeinput">t=-2:0.01:2;
+close <span class="string">all</span>
+plot (t,f(t))
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'f(t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_05.png" alt=""> <p>en esta gr&aacute;fica si podemos analizar la se&ntilde;al con claridad.</p><p><b>M1.2 Relational Operators and the Unit Step Function</b></p><p>Definimos la funci&oacute;n <img src="ASySPrac02JuanGarcia_eq17794740544861059683.png" alt="$u(t)$"></p><pre class="codeinput">u=@(t) (t&gt;=0&amp;t&gt;=0);
+</pre><p>posteriormente construimos un vector <img src="ASySPrac02JuanGarcia_eq12656067504604335951.png" alt="$t$"> con valores enteros y graficamos:</p><pre class="codeinput">t=(-2:2);
+close <span class="string">all</span>
+plot(t,u(t))
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'u(t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_06.png" alt=""> <p>como podemos ver, la gr&aacute;fica no se parece en lo absoluto al escal&oacute;n unitario, por lo que le damos m&aacute;s elementos al vector <img src="ASySPrac02JuanGarcia_eq12656067504604335951.png" alt="$t$">:</p><pre class="codeinput">t=(-2:0.01:2);
+close <span class="string">all</span>
+plot (t,u(t));
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'u(t)'</span>);
+axis([-2 2 -0.1 1.1])
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_07.png" alt=""> <p>podemos definir una funci&oacute;n similar a una resta de escalones, por ejemplo <img src="ASySPrac02JuanGarcia_eq03161171090039678661.png" alt="$u(t)-u(t-1)$"> de la siguiente forma:</p><pre class="codeinput">p = @(t)(t&gt;=0 &amp; t&lt;1);
+t = (-1:0.01:2); plot(t,p(t))
+xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'p(t) = u(t)-u(t-1)'</span>);
+axis ([-1 2 -.1 1.1]);
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_08.png" alt=""> <p>De esta manera podmos construir escalones unitarios y diferencias entre ellos.</p><p><b>M1.3 Visualizing Operations on the Independent Variable</b></p><p>Construimos la funci&oacute;n <img src="ASySPrac02JuanGarcia_eq05718249675162643558.png" alt="$g(t)=f(t)u(t)=f(t)=e^{-t}cos(2\pi t)u(t)$"> de la siguiente forma:</p><pre class="codeinput">g=@(t) exp(-t).*cos(2*pi*t).*(t&gt;=0);
+</pre><p>construimos un vector <i>t</i> y graficamos <img src="ASySPrac02JuanGarcia_eq14491512693946539684.png" alt="$g(2t+1)$">:</p><pre class="codeinput">t = (-2:0.01:2);
+plot(t,g(2*t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(2t+1)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_09.png" alt=""> <p>tambien podemos aplicar una inversi&oacute;n horizontal multiplicando el argumento de la funci&oacute;n por un menos <img src="ASySPrac02JuanGarcia_eq06774630882772102309.png" alt="$g(-t+1)$">:</p><pre class="codeinput">plot(t,g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(-t+1)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_10.png" alt=""> <p>como parte final del inciso, pomos realizar una suma de funciones <img src="ASySPrac02JuanGarcia_eq17232676470980988946.png" alt="$h(t)=g(2t+1)+g(-t+1)$"> de la siguiente manera:</p><pre class="codeinput">plot(t,g(2*t+1) +g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'h(t)'</span>); grid;
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_11.png" alt=""> <p><b>M1.4 Numerical Integration and Estimating Signal Energy</b></p><p>Podemos calcular la energ&iacute;a de una se&ntilde;al mediante la ecuaci&oacute;n <img src="ASySPrac02JuanGarcia_eq00970789490243812376.png" alt="$E_x=\int_{-\infty}^\infty |x(t)|^2dt$"></p><p>Para llevar a cabo esto en MATLAB definimos la funci&oacute;n <img src="ASySPrac02JuanGarcia_eq14833433867325483769.png" alt="$x(t)$"> y construimos un vector <i>t</i>:</p><pre class="codeinput">clear <span class="string">all</span>
+x=@(t)exp(-t).*((t&gt;=0)&amp;(t&lt;1));
+t=(0:0.01:1);
+</pre><p>posteriormente utilizamos es comando de <i>sum</i> para calcular la energ&iacute;a:</p><pre class="codeinput">Ex=sum(x(t).^2*0.01)
+</pre><pre class="codeoutput">
+Ex =
+
+    0.4367
+
+</pre><p>resultado que no es perfecto ya que puede tener al rededor de 1% de error relativo. Sin embargo para tener un resultado mucho m&aacute;s exacto (un error relativo de 0.0026%) podemos definir primero la funci&oacute;n al cuadrado, es decir:</p><pre class="codeinput">x2=@(t) exp(-2*t);
+Ex = integral(x2,0,1)
+</pre><pre class="codeoutput">
+Ex =
+
+    0.4323
+
+</pre><p>Otro ejemplo m&aacute;s complejo podr&iacute;a ser el siguiente:</p><p><img src="ASySPrac02JuanGarcia_eq06132697777747192485.png" alt="$$E_x=\int_{-\infty}^\infty e^{-2t}cos^2(2\pi t)dt$$"></p><pre class="codeinput">g2 =@(t) exp(-2.*t).*(cos(2.*pi.*t).^2).*(t&gt;=0);
+t = (0:0.01:100);
+Eg = integral(g2, 0,100)
+</pre><pre class="codeoutput">
+Eg =
+
+    0.2562
+
+</pre><h2>5<a name="29"></a></h2><p>Para emplear de manera pr&aacute;ctica lo visto en el inciso anterior, se resolver&aacute; el ejercicio 1.2.2. de <i>B.P. Lathi. Linear Sytems and Signals</i>:</p><p><b>1.2.2. For the signal x(t) illustrated</b></p><pre class="codeinput">clear <span class="string">all</span>
+close <span class="string">all</span>
+t=-10:0.01:10;
+x=@(t) abs(t).*(t&gt;=-4&amp;t&lt;=2);
+Figura(t,x(t),<span class="string">'x(t)'</span>)
+axis([-5 3 -0.1 4.5])
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_12.png" alt=""> <p><b>a. <img src="ASySPrac02JuanGarcia_eq12657945112240979270.png" alt="$x(t-4)$"></b></p><pre class="codeinput">Figura(t,x(t-4),<span class="string">'x(t-4)'</span>)
+axis([-1 7 -0.1 4.5])
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_13.png" alt=""> <p><b>b. <img src="ASySPrac02JuanGarcia_eq02086319364408569578.png" alt="$x(\frac{t}{1.5})$"></b></p><pre class="codeinput">Figura(t,x(t./1.5),<span class="string">'x(t/1.5)'</span>)
+axis([-7 4 -0.1 4.5])
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_14.png" alt=""> <p><b>c. <img src="ASySPrac02JuanGarcia_eq09897293323470263254.png" alt="$x(-t)$"></b></p><pre class="codeinput">Figura(t,x(-t),<span class="string">'x(-t)'</span>)
+axis([-3 5 -0.1 4.5])
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_15.png" alt=""> <p><b>d. <img src="ASySPrac02JuanGarcia_eq03542025780904024759.png" alt="$x(2t-4)$"></b></p><pre class="codeinput">Figura(t,x(2.*t-4),<span class="string">'x(2t-4)'</span>)
+axis([-1 4 -0.1 4.5])
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_16.png" alt=""> <p><b>e. <img src="ASySPrac02JuanGarcia_eq06543333246515609381.png" alt="$x(2-t)$"></b></p><pre class="codeinput">Figura(t,x(2-t),<span class="string">'x(2-t)'</span>)
+axis([-1 7 -0.1 4.5])
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_17.png" alt=""> <h2>6<a name="36"></a></h2><p>Para este punto se ha elaborado la funci&oacute;n <i>energia</i>, la cual recibe una se&ntilde;al y calcula su energ&iacute;a.</p><p>A manera de demostraci&oacute;n se resolver&aacute; el problema 1.1.3. de <i>B.P. Lathi. Linear Sytems and Signals</i>:</p><p><b>Find the energies of the pair of signals x(t) and y(t) depicted. Sketch and find the energies of signals x(t) + y(t) and x(t) - y(t).</b></p><p><b>a</b></p><p><img src="ASySPrac02JuanGarcia_eq10601857937760667102.png" alt="$$x(t)=u(t)-u(t-2)$$"></p><p><img src="ASySPrac02JuanGarcia_eq12774477852707982988.png" alt="$$y(t)=u(t)-2u(t-1)+u(t-2)$$"></p><pre class="codeinput">clear <span class="string">all</span>
+t=-1:0.01:5;
+x=@(t) 1*(heaviside(t)-heaviside(t-2));
+y=@(t) (heaviside(t)-2.*heaviside(t-1)+heaviside(t-2));
+close <span class="string">all</span>
+Figura3(t,x(t),y(t))
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_18.png" alt=""> <p>para <img src="ASySPrac02JuanGarcia_eq14396382197640393517.png" alt="$h(t)=x(t)+y(t)$">:</p><pre class="codeinput">h=@(t) (x(t)+y(t));
+Figura(t,h(t),<span class="string">'x(t)+y(t)'</span>)
+h=@(t) h(t).^2;
+E=energia(h)
+</pre><pre class="codeoutput">
+E =
+
+    4.0000
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_19.png" alt=""> <p>para <img src="ASySPrac02JuanGarcia_eq00986703012340774257.png" alt="$h(t)=x(t)-y(t)$">:</p><pre class="codeinput">h=@(t) (x(t)-y(t));
+Figura(t,h(t),<span class="string">'x(t)-y(t)'</span>)
+h=@(t) h(t).^2;
+E=energia(h)
+</pre><pre class="codeoutput">
+E =
+
+    4.0000
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_20.png" alt=""> <p><b>b</b></p><p><img src="ASySPrac02JuanGarcia_eq06488969628708969876.png" alt="$$x(t)=sen(t)(u(t)-u(t-2\pi))$$"></p><p><img src="ASySPrac02JuanGarcia_eq03523745116022356583.png" alt="$$y(t)=u(t)-u(t-2\pi)$$"></p><pre class="codeinput">clear <span class="string">all</span>
+t=-1:0.01:2.5*pi;
+x=@(t) sin(t).*(heaviside(t)-heaviside(t-2*pi));
+y=@(t) (heaviside(t)-heaviside(t-2*pi));
+close <span class="string">all</span>
+Figura3(t,x(t),y(t))
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_21.png" alt=""> <p>para <img src="ASySPrac02JuanGarcia_eq14396382197640393517.png" alt="$h(t)=x(t)+y(t)$">:</p><pre class="codeinput">h=@(t) (x(t)+y(t));
+Figura(t,h(t),<span class="string">'x(t)+y(t)'</span>)
+h=@(t) h(t).^2;
+E=energia(h)
+</pre><pre class="codeoutput">
+E =
+
+    9.4248
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_22.png" alt=""> <p>para <img src="ASySPrac02JuanGarcia_eq00986703012340774257.png" alt="$h(t)=x(t)-y(t)$">:</p><pre class="codeinput">h=@(t) (x(t)-y(t));
+Figura(t,h(t),<span class="string">'x(t)-y(t)'</span>)
+h=@(t) h(t).^2;
+E=energia(h)
+</pre><pre class="codeoutput">
+E =
+
+    9.4248
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_23.png" alt=""> <p><b>c</b></p><p><img src="ASySPrac02JuanGarcia_eq14276184336306601979.png" alt="$$x(t)=sen(t)(u(t)-u(t-\pi))$$"></p><p><img src="ASySPrac02JuanGarcia_eq00496792147849909047.png" alt="$$y(t)=u(t)-2u(t-\pi)$$"></p><pre class="codeinput">clear <span class="string">all</span>
+t=-1:0.01:2*pi;
+x=@(t) sin(t).*(heaviside(t)-heaviside(t-pi));
+y=@(t) (heaviside(t)-heaviside(t-pi));
+close <span class="string">all</span>
+Figura3(t,x(t),y(t))
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_24.png" alt=""> <p>para <img src="ASySPrac02JuanGarcia_eq14396382197640393517.png" alt="$h(t)=x(t)+y(t)$">:</p><pre class="codeinput">h=@(t) (x(t)+y(t));
+Figura(t,h(t),<span class="string">'x(t)+y(t)'</span>)
+h=@(t) h(t).^2;
+E=energia(h)
+</pre><pre class="codeoutput">
+E =
+
+    8.7124
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_25.png" alt=""> <p>para <img src="ASySPrac02JuanGarcia_eq00986703012340774257.png" alt="$h(t)=x(t)-y(t)$">:</p><pre class="codeinput">h=@(t) (x(t)-y(t));
+Figura(t,h(t),<span class="string">'x(t)-y(t)'</span>)
+h=@(t) h(t).^2;
+E=energia(h)
+</pre><pre class="codeoutput">
+E =
+
+    0.7124
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_26.png" alt=""> <p>El c&oacute;digo para la funci&oacute;n <i>Figura3</i> y para la funci&oacute;n <i>energia</i> se encuentran en los ap&eacute;ndices 4 y 5 respectivamente</p><h2>7<a name="46"></a></h2><p>Para este punto se ha elaborado la funci&oacute;n <i>potencia</i>, la cual recibe una se&ntilde;al y calcula su potencia.</p><p>A manera de demostraci&oacute;n se resolver&aacute; el problema 1.1.4. de <i>B.P. Lathi. Linear Sytems and Signals</i>:</p><p><b>Find the power of the periodic signal <img src="ASySPrac02JuanGarcia_eq00059523975297151491.png" alt="$x(t)=t^3$"> Find also the powers and the rms values of:.</b></p><pre class="codeinput">clear <span class="string">all</span>
+t=-10:0.01:10;
+T=4;
+x=@(t) (t.^3).*(heaviside(t+2)-heaviside(t-2));
+close <span class="string">all</span>
+Figura(t,x(t),<span class="string">'x(t)'</span>)
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_27.png" alt=""> <p>Aunque la funci&oacute;n es peri&oacute;dica, por la complejidad de realizar la g&aacute;fica en MATLAB, solo graficaremos un periodo</p><pre class="codeinput">x=@(t) x(t).^2;
+potencia(x,T)
+</pre><pre class="codeoutput">
+P =
+
+    9.1429
+
+
+rms =
+
+    3.0237
+
+</pre><p><b>a</b></p><p><img src="ASySPrac02JuanGarcia_eq15342580306788649269.png" alt="$$x(-t)$$"></p><pre class="codeinput">clear <span class="string">all</span>
+t=-10:0.01:10;
+T=4;
+x=@(t) (t.^3).*(heaviside(t+2)-heaviside(t-2));
+close <span class="string">all</span>
+Figura(t,x(-t),<span class="string">'x(-t)'</span>)
+x=@(t) x(-t).^2;
+potencia(x,T)
+</pre><pre class="codeoutput">
+P =
+
+    9.1429
+
+
+rms =
+
+    3.0237
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_28.png" alt=""> <p><b>b</b></p><p><img src="ASySPrac02JuanGarcia_eq10370215865919297235.png" alt="$$2x(t)$$"></p><pre class="codeinput">clear <span class="string">all</span>
+t=-10:0.01:10;
+T=4;
+x=@(t) (t.^3).*(heaviside(t+2)-heaviside(t-2));
+close <span class="string">all</span>
+Figura(t,2*x(t),<span class="string">'2x(t)'</span>)
+x=@(t) (2*x(t)).^2;
+potencia(x,T)
+</pre><pre class="codeoutput">
+P =
+
+   36.5714
+
+
+rms =
+
+    6.0474
+
+</pre><img vspace="5" hspace="5" src="ASySPrac02JuanGarcia_29.png" alt=""> <p>El c&oacute;digo para la funci&oacute;n <i>potencia</i>  se encuentra en el ap&eacute;ndice 6.</p><h2>Ap&eacute;ndice<a name="51"></a></h2><p><b>Ap&eacute;ndice 1</b></p><pre class="language-matlab"><span class="keyword">function</span> [ F ] = fun1( a,w )
+F=a/(a^2+w^2);
+<span class="keyword">end</span>
+</pre><p><b>Ap&eacute;ndice 2</b></p><pre class="language-matlab"><span class="keyword">function</span> Figura(X1, Y1, titulo)
+<span class="comment">%CREATEFIGURE(X1, Y1)</span>
+<span class="comment">%  X1:  vector of x data</span>
+<span class="comment">%  Y1:  vector of y data</span>
+</pre><pre class="language-matlab"><span class="comment">%  Auto-generated by MATLAB on 31-Mar-2019 17:32:41</span>
+</pre><pre class="language-matlab"><span class="comment">% Create figure</span>
+figure1 = figure;
+</pre><pre class="language-matlab"><span class="comment">% Create axes</span>
+axes1 = axes(<span class="string">'Parent'</span>,figure1,<span class="keyword">...</span>
+    <span class="string">'Position'</span>,[0.0453879941434846 0.11 0.920937042459737 0.790702356549946]);
+hold(axes1,<span class="string">'on'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Create plot</span>
+plot(X1,Y1,<span class="string">'ZDataSource'</span>,<span class="string">''</span>,<span class="string">'DisplayName'</span>,<span class="string">'f(x)'</span>,<span class="string">'LineWidth'</span>,2,<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[1 0 0]);
+</pre><pre class="language-matlab"><span class="comment">% Create title</span>
+title({titulo,<span class="string">''</span>});
+</pre><pre class="language-matlab"><span class="comment">% Set the remaining axes properties</span>
+set(axes1,<span class="string">'Color'</span>,[0.960784316062927 0.921568632125854 0.921568632125854],<span class="keyword">...</span>
+    <span class="string">'FontName'</span>,<span class="string">'Century Gothic'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'XAxisLocation'</span>,<span class="string">'origin'</span>,<span class="keyword">...</span>
+    <span class="string">'XGrid'</span>,<span class="string">'on'</span>,<span class="string">'YAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'YGrid'</span>,<span class="string">'on'</span>);
+</pre><p><b>Ap&eacute;ndice 3</b></p><pre class="language-matlab"><span class="keyword">function</span> Figura2(P,X1, Y1)
+<span class="comment">%CREATEFIGURE(X1, Y1)</span>
+<span class="comment">%  X1:  vector of x data</span>
+<span class="comment">%  Y1:  vector of y data</span>
+</pre><pre class="language-matlab"><span class="comment">%  Auto-generated by MATLAB on 31-Mar-2019 19:34:23</span>
+</pre><pre class="language-matlab"><span class="comment">% Create figure</span>
+figure1 = figure;
+</pre><pre class="language-matlab"><span class="comment">% Create subplot</span>
+subplot1 = subplot(2,1,1,<span class="string">'Parent'</span>,figure1);
+hold(subplot1,<span class="string">'on'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Create plot</span>
+plot(P,X1,<span class="string">'Parent'</span>,subplot1,<span class="string">'LineWidth'</span>,2,<span class="string">'Color'</span>,[1 0 0]);
+</pre><pre class="language-matlab"><span class="comment">% Create title</span>
+title(<span class="string">'espectro de magnitud'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Set the remaining axes properties</span>
+set(subplot1,<span class="string">'Color'</span>,[1 0.968627452850342 0.921568632125854],<span class="string">'FontName'</span>,<span class="keyword">...</span>
+    <span class="string">'Century Gothic'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'XAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'XGrid'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+    <span class="string">'YAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'YGrid'</span>,<span class="string">'on'</span>);
+<span class="comment">% Create subplot</span>
+subplot2 = subplot(2,1,2,<span class="string">'Parent'</span>,figure1);
+hold(subplot2,<span class="string">'on'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Create plot</span>
+plot(P,Y1,<span class="string">'Parent'</span>,subplot2,<span class="string">'LineWidth'</span>,2,<span class="string">'Color'</span>,[1 0 0]);
+</pre><pre class="language-matlab"><span class="comment">% Create title</span>
+title(<span class="string">'espectro de fase'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Set the remaining axes properties</span>
+set(subplot2,<span class="string">'Color'</span>,[1 0.968627452850342 0.921568632125854],<span class="string">'FontName'</span>,<span class="keyword">...</span>
+    <span class="string">'Century Gothic'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'XAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'XGrid'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+    <span class="string">'YAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'YGrid'</span>,<span class="string">'on'</span>);
+</pre><p><b>Ap&eacute;ndice 4</b></p><pre class="language-matlab"><span class="keyword">function</span> Figura3(P,X1, Y1)
+<span class="comment">%CREATEFIGURE(X1, Y1)</span>
+<span class="comment">%  X1:  vector of x data</span>
+<span class="comment">%  Y1:  vector of y data</span>
+</pre><pre class="language-matlab"><span class="comment">%  Auto-generated by MATLAB on 31-Mar-2019 19:34:23</span>
+</pre><pre class="language-matlab"><span class="comment">% Create figure</span>
+figure1 = figure;
+</pre><pre class="language-matlab"><span class="comment">% Create subplot</span>
+subplot1 = subplot(1,2,1,<span class="string">'Parent'</span>,figure1);
+hold(subplot1,<span class="string">'on'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Create plot</span>
+plot(P,X1,<span class="string">'Parent'</span>,subplot1,<span class="string">'LineWidth'</span>,2,<span class="string">'Color'</span>,[1 0 0]);
+</pre><pre class="language-matlab"><span class="comment">% Create title</span>
+title(<span class="string">'x(t)'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Set the remaining axes properties</span>
+set(subplot1,<span class="string">'Color'</span>,[1 0.968627452850342 0.921568632125854],<span class="string">'FontName'</span>,<span class="keyword">...</span>
+    <span class="string">'Century Gothic'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'XAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'XGrid'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+    <span class="string">'YAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'YGrid'</span>,<span class="string">'on'</span>);
+axis([-1 2.5*pi -2 2])
+<span class="comment">% Create subplot</span>
+subplot2 = subplot(1,2,2,<span class="string">'Parent'</span>,figure1);
+hold(subplot2,<span class="string">'on'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Create plot</span>
+plot(P,Y1,<span class="string">'Parent'</span>,subplot2,<span class="string">'LineWidth'</span>,2,<span class="string">'Color'</span>,[1 0 0]);
+</pre><pre class="language-matlab"><span class="comment">% Create title</span>
+title(<span class="string">'y(t)'</span>);
+</pre><pre class="language-matlab"><span class="comment">% Set the remaining axes properties</span>
+set(subplot2,<span class="string">'Color'</span>,[1 0.968627452850342 0.921568632125854],<span class="string">'FontName'</span>,<span class="keyword">...</span>
+    <span class="string">'Century Gothic'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'XAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'XGrid'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+    <span class="string">'YAxisLocation'</span>,<span class="string">'origin'</span>,<span class="string">'YGrid'</span>,<span class="string">'on'</span>);
+axis([-1 2.5*pi -2 2])
+</pre><p><b>Ap&eacute;ndice 5</b></p><pre class="language-matlab"><span class="keyword">function</span> [ E ] = energia( X )
+E=integral(X,-Inf,Inf);
+<span class="keyword">end</span>
+</pre><p><b>Ap&eacute;ndice 6</b></p><pre class="language-matlab"><span class="keyword">function</span> [ ] = potencia( X,T )
+P=(integral(X,-T/2,T/2))./T
+rms=sqrt(P)
+<span class="keyword">end</span>
+</pre><h2>Referencias<a name="57"></a></h2><div><ol><li>B.P. Lathi. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.</li><li>Integral. 29 marzo 2019, de MathWorks Sitio web: https://es.mathworks.com/discovery/integral.html</li><li>Limit. 29 marzo 2019, de MathWorks Sitio web: https://www.mathworks.com/help/symbolic/limit.html</li><li>(2012). Juntas, pero no revueltas: sub-gr&aacute;ficas en una misma figura de Matlab . 29 marzo 2019, de 5 minutos de Matlab Sitio web: <a href="http://5minutosdematlab.blogspot.com/2012/09/juntas-pero-no-revueltas-sub-graficas.html">http://5minutosdematlab.blogspot.com/2012/09/juntas-pero-no-revueltas-sub-graficas.html</a></li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% P02: Señales en Tiempo Contínuo
+% 
+% <<UPIITA.PNG>>
+%
+% *UNIDAD PROFESIONAL INTERDISCIPLINARIA EN INGENIERÍA Y TECNOLOGÍAS AVANZADAS* 
+% 
+% *Análisis de Señales y Sistemas*
+%
+% Autor: García Sandoval Juan Jesús 2MV1
+%
+% Profesor: Dr Rafael Martínez Martínez
+%
+%% Objetivos
+% Como objetivos principales de la práctica se pretende implementar la manipulación básica de MATLAB, 
+% así como la graficación de señales reales y complejas continuas, la transformación de señales continuas 
+% (escalamientos y traslaciones) y el cálculo de energía y potencia de señales continuas
+%% Introducción
+%
+% En la presente práctica se desarrollará una página web, en lenguaje html utilizando MATLAB.
+% 
+% MATLAB es un software matemático desarrollado por MathWorks y su nombre proviene de
+% la Abreviación de MATrix LABoratory. 
+%
+% MATLAB surgió a partir que Cleve Moler, co-fundador de MathWorks, matemático estadounidense y 
+% programador de ordenador que se especializa en análisis numérico, desarrolló 
+% un paquete de informática numérico, para dar su alumnado en la Universidad de 
+% Nuevo México, surgiendo en 1984 la primera versión estable del software.
+%
+% MATLAB implementa un lenguaje de programación propio (lenguaje M) para
+% desarrollar aplicaciones y realizar cálculos de análisis numérico.
+%
+% MATLAB es un software muy útil para la resolución de problemas
+% matemáticos, sin embargo existen otras alternativas muy similares a
+% MATLAB, por ejemplo <https://www.gnu.org/software/octave/ Octave> que se
+% considera como la versión libre de MATLAB,
+% <https://www.maplesoft.com/products/maple/ Maple> que es una alternativa
+% muy empleada, y por parte de Wolfram está
+% <https://www.wolfram.com/mathematica/ Mathematica> y
+% <https://www.wolframalpha.com/ WolframAlpha> esta última es una
+% plataforma en linea que carece de código riguroso por lo que es muy
+% senillo de usar, pero también carece de características como MATLAB o
+% Mathematica.
+%
+%% 1
+%
+% Se creó una función llamada _fun1_ la cual recibe dos parametros $\omega$ y $a$ 
+% para entonces regesar la evaluación $F(\omega)=\frac{a}{a^2+\omega^2}$
+% como se muestra a continuación:
+%
+% Proponrmos $a$ y $\omega$ con los siguientes valores:
+a=1;
+w=2;
+F(w)=fun1(a,w);
+%%
+% El código de la función _fun1_ se encuentra en el apéndice 1
+%% 2
+%
+% Se creará una función que nos permita graficar con un estilo predefinido.
+% En este caso se graficará el ejemplo del inciso anterior
+% $F(\omega)=\frac{a}{a^2+\omega^2}$. La función se invoca de la siguiente manera:  _Figura(valores en x,
+% valores en y, 'título del gráfico')_
+
+w=-2:0.001:2;
+a=1;
+f=@(w) a./(a^2+w.^2);
+Figura(w,f(w),'F(w)')
+%%
+% El código de la función _Figura_ se encuentra en el apéndice 2.
+%% 3
+% 
+% Se creará una función que gráfique funciones de $f:R\rightarrow R^2$ con
+% un estilo predefinido. Para este caso se graficará el espectro de
+% magnitud y de fase de la transformada de Fourier de la función
+% $f(t)=e^{-2t}u(t)$.
+%
+% Tenemos entonces que
+%
+% $$f(t)=e^{-2t}u(t)\Longleftrightarrow X(\omega)=\frac{1}{2+j\omega}$$
+% 
+% pasando a su forma polar: 
+%
+% $$X(\omega)=\frac{1}{\sqrt{4+\omega^2}}e^{-jtan^{-1}(\frac{\omega}{2})}$$
+% 
+% por lo tanto: 
+%
+% $|X(\omega)|=\frac{1}{\sqrt{4+\omega^2}}\:\:\:y\:\:\:\angle X(\omega)=-tan^{-1}(\frac{\omega}{2})$
+%
+% Entonces podemos emplear la función para graficar el espectro de fase y
+% de magnitud, donde 
+clear all
+w=-10:0.01:10;
+f=@(w) 1./sqrt(4+w.^2);
+g=@(w) (-1).*atan(w./2);
+Figura2(w,f(w),g(w))
+%%
+% 
+% De igual manera podemos graficar la función original $f(t)=e^{-2t}u(t)$
+% con la función hecha en el punto 2:
+clear all
+t=-10:0.01:10;
+f=@(t) exp(-2.*t);
+Figura(t,f(t),'f(t)')
+%%
+% El código de la función _Figura_ y el código de la función _Figura2_ se encuentra en 
+% el apéndice 2 y en el apéndice 3 respectivamente.
+%
+%% 4
+%
+% *M1.1 Inline Functions*
+%
+% definimos la función $f(t)=e^{-t}cos(2\pi t)$:
+clear all
+f=@(t) exp(-t).*cos(2*pi*t);
+%%
+% evaluamos la función en cero:
+f(0)
+%%
+% también podemos evaluar la función en un vector definido:
+t=(-2:2);
+f(t)
+%%
+% Finalmente podemos graficar $f(t)$ contra $t$:
+close all
+plot(t,f(t));
+xlabel('t'); ylabel('f(t)'); grid;
+%%
+% Lo que nos arroja una gráfica poco entendible, asi que daremos más
+% elementos al vector $t$ y graficaremos de nuevo:
+t=-2:0.01:2;
+close all
+plot (t,f(t))
+xlabel('t'); ylabel('f(t)'); grid;
+%%
+% en esta gráfica si podemos analizar la señal con claridad.
+%
+%
+%%
+% *M1.2 Relational Operators and the Unit Step Function*
+%
+% Definimos la función $u(t)$
+u=@(t) (t>=0&t>=0);
+%%
+% posteriormente construimos un vector $t$ con valores enteros y graficamos: 
+t=(-2:2);
+close all
+plot(t,u(t))
+xlabel('t'); ylabel('u(t)'); grid;
+%%
+% como podemos ver, la gráfica no se parece en lo absoluto al escalón
+% unitario, por lo que le damos más elementos al vector $t$:
+t=(-2:0.01:2);
+close all
+plot (t,u(t));
+xlabel('t'); ylabel('u(t)');
+axis([-2 2 -0.1 1.1])
+%% 
+% podemos definir una función similar a una resta de escalones, por ejemplo
+% $u(t)-u(t-1)$ de la siguiente forma:
+p = @(t)(t>=0 & t<1);
+t = (-1:0.01:2); plot(t,p(t))
+xlabel('t'); ylabel('p(t) = u(t)-u(t-1)');
+axis ([-1 2 -.1 1.1]);
+%%
+% De esta manera podmos construir escalones unitarios y diferencias entre ellos.
+%%
+%
+% *M1.3 Visualizing Operations on the Independent Variable*
+%
+% Construimos la función $g(t)=f(t)u(t)=f(t)=e^{-t}cos(2\pi t)u(t)$ de la
+% siguiente forma:
+g=@(t) exp(-t).*cos(2*pi*t).*(t>=0);
+%%
+% construimos un vector _t_ y graficamos $g(2t+1)$:
+t = (-2:0.01:2);
+plot(t,g(2*t+1)); xlabel('t'); ylabel('g(2t+1)'); grid;
+%%
+% tambien podemos aplicar una inversión horizontal multiplicando el
+% argumento de la función por un menos $g(-t+1)$:
+plot(t,g(-t+1)); xlabel('t'); ylabel('g(-t+1)'); grid;
+%%
+% como parte final del inciso, pomos realizar una suma de funciones
+% $h(t)=g(2t+1)+g(-t+1)$ de la siguiente manera:
+plot(t,g(2*t+1) +g(-t+1)); xlabel('t'); ylabel('h(t)'); grid;
+%%
+%
+% *M1.4 Numerical Integration and Estimating Signal Energy*
+%
+% Podemos calcular la energía de una señal mediante la ecuación $E_x=\int_{-\infty}^\infty |x(t)|^2dt$
+% 
+% Para llevar a cabo esto en MATLAB definimos la función $x(t)$ y construimos un vector _t_:
+clear all
+x=@(t)exp(-t).*((t>=0)&(t<1));
+t=(0:0.01:1);
+%%
+% posteriormente utilizamos es comando de _sum_ para calcular la energía:
+Ex=sum(x(t).^2*0.01)
+%%
+% resultado que no es perfecto ya que puede tener al rededor de 1% de error
+% relativo. Sin embargo para tener un resultado mucho más exacto (un error relativo de 0.0026%) podemos
+% definir primero la función al cuadrado, es decir:
+x2=@(t) exp(-2*t);
+Ex = integral(x2,0,1)
+%%
+% Otro ejemplo más complejo podría ser el siguiente: 
+%
+% $$E_x=\int_{-\infty}^\infty e^{-2t}cos^2(2\pi t)dt$$
+%
+g2 =@(t) exp(-2.*t).*(cos(2.*pi.*t).^2).*(t>=0);
+t = (0:0.01:100);
+Eg = integral(g2, 0,100)
+%% 5
+%
+% Para emplear de manera práctica lo visto en el inciso anterior, se
+% resolverá el ejercicio 1.2.2. de _B.P. Lathi. Linear Sytems and Signals_:
+%%
+% *1.2.2. For the signal x(t) illustrated*
+clear all
+close all
+t=-10:0.01:10;
+x=@(t) abs(t).*(t>=-4&t<=2);
+Figura(t,x(t),'x(t)')
+axis([-5 3 -0.1 4.5])
+%%
+% *a. $x(t-4)$*
+Figura(t,x(t-4),'x(t-4)')
+axis([-1 7 -0.1 4.5])
+%%
+% *b. $x(\frac{t}{1.5})$*
+Figura(t,x(t./1.5),'x(t/1.5)')
+axis([-7 4 -0.1 4.5])
+%%
+% *c. $x(-t)$*
+Figura(t,x(-t),'x(-t)')
+axis([-3 5 -0.1 4.5])
+%%
+% *d. $x(2t-4)$*
+Figura(t,x(2.*t-4),'x(2t-4)')
+axis([-1 4 -0.1 4.5])
+%%
+% *e. $x(2-t)$*
+Figura(t,x(2-t),'x(2-t)')
+axis([-1 7 -0.1 4.5])
+%% 6
+%
+% Para este punto se ha elaborado la función _energia_, la cual recibe una
+% señal y calcula su energía.
+%
+% A manera de demostración se resolverá el problema 1.1.3. de _B.P. Lathi. Linear Sytems and Signals_:
+%
+% *Find the energies of the pair of signals x(t) and y(t) depicted. Sketch and find
+% the energies of signals x(t) + y(t) and x(t) - y(t).* 
+%
+% *a*
+%
+% $$x(t)=u(t)-u(t-2)$$
+% 
+% $$y(t)=u(t)-2u(t-1)+u(t-2)$$
+clear all
+t=-1:0.01:5;
+x=@(t) 1*(heaviside(t)-heaviside(t-2));
+y=@(t) (heaviside(t)-2.*heaviside(t-1)+heaviside(t-2));
+close all
+Figura3(t,x(t),y(t))
+%%
+% para $h(t)=x(t)+y(t)$:
+h=@(t) (x(t)+y(t));
+Figura(t,h(t),'x(t)+y(t)')
+h=@(t) h(t).^2;
+E=energia(h)
+%%
+% para $h(t)=x(t)-y(t)$:
+h=@(t) (x(t)-y(t));
+Figura(t,h(t),'x(t)-y(t)')
+h=@(t) h(t).^2;
+E=energia(h)
+%%
+% *b*
+%
+% $$x(t)=sen(t)(u(t)-u(t-2\pi))$$
+% 
+% $$y(t)=u(t)-u(t-2\pi)$$
+clear all
+t=-1:0.01:2.5*pi;
+x=@(t) sin(t).*(heaviside(t)-heaviside(t-2*pi));
+y=@(t) (heaviside(t)-heaviside(t-2*pi));
+close all
+Figura3(t,x(t),y(t))
+%%
+% para $h(t)=x(t)+y(t)$:
+h=@(t) (x(t)+y(t));
+Figura(t,h(t),'x(t)+y(t)')
+h=@(t) h(t).^2;
+E=energia(h)
+%%
+% para $h(t)=x(t)-y(t)$:
+h=@(t) (x(t)-y(t));
+Figura(t,h(t),'x(t)-y(t)')
+h=@(t) h(t).^2;
+E=energia(h)
+%%
+% *c*
+%
+% $$x(t)=sen(t)(u(t)-u(t-\pi))$$
+% 
+% $$y(t)=u(t)-2u(t-\pi)$$
+clear all
+t=-1:0.01:2*pi;
+x=@(t) sin(t).*(heaviside(t)-heaviside(t-pi));
+y=@(t) (heaviside(t)-heaviside(t-pi));
+close all
+Figura3(t,x(t),y(t))
+%%
+% para $h(t)=x(t)+y(t)$:
+h=@(t) (x(t)+y(t));
+Figura(t,h(t),'x(t)+y(t)')
+h=@(t) h(t).^2;
+E=energia(h)
+%%
+% para $h(t)=x(t)-y(t)$:
+h=@(t) (x(t)-y(t));
+Figura(t,h(t),'x(t)-y(t)')
+h=@(t) h(t).^2;
+E=energia(h)
+%%
+% El código para la función _Figura3_ y para la función _energia_ se
+% encuentran en los apéndices 4 y 5 respectivamente
+%% 7
+%
+% Para este punto se ha elaborado la función _potencia_, la cual recibe una
+% señal y calcula su potencia.
+%
+% A manera de demostración se resolverá el problema 1.1.4. de _B.P. Lathi. Linear Sytems and Signals_:
+%
+% *Find the power of the periodic signal $x(t)=t^3$ Find also the powers and the rms values of:.* 
+clear all
+t=-10:0.01:10;
+T=4;
+x=@(t) (t.^3).*(heaviside(t+2)-heaviside(t-2));
+close all
+Figura(t,x(t),'x(t)')
+%%
+% Aunque la función es periódica, por la complejidad de realizar la gáfica
+% en MATLAB, solo graficaremos un periodo
+x=@(t) x(t).^2;
+potencia(x,T)
+%%
+% *a* 
+%
+% $$x(-t)$$
+clear all
+t=-10:0.01:10;
+T=4;
+x=@(t) (t.^3).*(heaviside(t+2)-heaviside(t-2));
+close all
+Figura(t,x(-t),'x(-t)')
+x=@(t) x(-t).^2;
+potencia(x,T)
+%%
+% *b* 
+%
+% $$2x(t)$$
+clear all
+t=-10:0.01:10;
+T=4;
+x=@(t) (t.^3).*(heaviside(t+2)-heaviside(t-2));
+close all
+Figura(t,2*x(t),'2x(t)')
+x=@(t) (2*x(t)).^2;
+potencia(x,T)
+%%
+% El código para la función _potencia_  se
+% encuentra en el apéndice 6.
+%% Apéndice 
+%
+% *Apéndice 1* 
+%
+%   function [ F ] = fun1( a,w )
+%   F=a/(a^2+w^2);
+%   end
+%
+%%
+% *Apéndice 2*
+%
+%   function Figura(X1, Y1, titulo)
+%   %CREATEFIGURE(X1, Y1)
+%   %  X1:  vector of x data
+%   %  Y1:  vector of y data
+% 
+%   %  Auto-generated by MATLAB on 31-Mar-2019 17:32:41
+% 
+%   % Create figure
+%   figure1 = figure;
+% 
+%   % Create axes
+%   axes1 = axes('Parent',figure1,...
+%       'Position',[0.0453879941434846 0.11 0.920937042459737 0.790702356549946]);
+%   hold(axes1,'on');
+% 
+%   % Create plot
+%   plot(X1,Y1,'ZDataSource','','DisplayName','f(x)','LineWidth',2,...
+%       'Color',[1 0 0]);
+% 
+%   % Create title
+%   title({titulo,''});
+% 
+%   % Set the remaining axes properties
+%   set(axes1,'Color',[0.960784316062927 0.921568632125854 0.921568632125854],...
+%       'FontName','Century Gothic','FontWeight','bold','XAxisLocation','origin',...
+%       'XGrid','on','YAxisLocation','origin','YGrid','on');
+%
+%%
+% *Apéndice 3*
+%
+%   function Figura2(P,X1, Y1)
+%   %CREATEFIGURE(X1, Y1)
+%   %  X1:  vector of x data
+%   %  Y1:  vector of y data
+% 
+%   %  Auto-generated by MATLAB on 31-Mar-2019 19:34:23
+% 
+%   % Create figure
+%   figure1 = figure;
+% 
+%   % Create subplot
+%   subplot1 = subplot(2,1,1,'Parent',figure1);
+%   hold(subplot1,'on');
+% 
+%   % Create plot
+%   plot(P,X1,'Parent',subplot1,'LineWidth',2,'Color',[1 0 0]);
+% 
+%   % Create title
+%   title('espectro de magnitud');
+% 
+%   % Set the remaining axes properties
+%   set(subplot1,'Color',[1 0.968627452850342 0.921568632125854],'FontName',...
+%       'Century Gothic','FontWeight','bold','XAxisLocation','origin','XGrid','on',...
+%       'YAxisLocation','origin','YGrid','on');
+%   % Create subplot
+%   subplot2 = subplot(2,1,2,'Parent',figure1);
+%   hold(subplot2,'on');
+% 
+%   % Create plot
+%   plot(P,Y1,'Parent',subplot2,'LineWidth',2,'Color',[1 0 0]);
+% 
+%   % Create title
+%   title('espectro de fase');
+% 
+%   % Set the remaining axes properties
+%   set(subplot2,'Color',[1 0.968627452850342 0.921568632125854],'FontName',...
+%       'Century Gothic','FontWeight','bold','XAxisLocation','origin','XGrid','on',...
+%       'YAxisLocation','origin','YGrid','on');
+%
+%%
+% *Apéndice 4*
+%
+%   function Figura3(P,X1, Y1)
+%   %CREATEFIGURE(X1, Y1)
+%   %  X1:  vector of x data
+%   %  Y1:  vector of y data
+% 
+%   %  Auto-generated by MATLAB on 31-Mar-2019 19:34:23
+% 
+%   % Create figure
+%   figure1 = figure;
+% 
+%   % Create subplot
+%   subplot1 = subplot(1,2,1,'Parent',figure1);
+%   hold(subplot1,'on');
+% 
+%   % Create plot
+%   plot(P,X1,'Parent',subplot1,'LineWidth',2,'Color',[1 0 0]);
+% 
+%   % Create title
+%   title('x(t)');
+% 
+%   % Set the remaining axes properties
+%   set(subplot1,'Color',[1 0.968627452850342 0.921568632125854],'FontName',...
+%       'Century Gothic','FontWeight','bold','XAxisLocation','origin','XGrid','on',...
+%       'YAxisLocation','origin','YGrid','on');
+%   axis([-1 2.5*pi -2 2])
+%   % Create subplot
+%   subplot2 = subplot(1,2,2,'Parent',figure1);
+%   hold(subplot2,'on');
+% 
+%   % Create plot
+%   plot(P,Y1,'Parent',subplot2,'LineWidth',2,'Color',[1 0 0]);
+% 
+%   % Create title
+%   title('y(t)');
+% 
+%   % Set the remaining axes properties
+%   set(subplot2,'Color',[1 0.968627452850342 0.921568632125854],'FontName',...
+%       'Century Gothic','FontWeight','bold','XAxisLocation','origin','XGrid','on',...
+%       'YAxisLocation','origin','YGrid','on');
+%   axis([-1 2.5*pi -2 2])
+%
+%%
+% *Apéndice 5*
+%
+%   function [ E ] = energia( X )
+%   E=integral(X,-Inf,Inf);
+%   end
+%
+%%
+% *Apéndice 6*
+%
+%   function [ ] = potencia( X,T )
+%   P=(integral(X,-T/2,T/2))./T
+%   rms=sqrt(P)
+%   end
+%
+%% Referencias
+% 
+% # B.P. Lathi. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.
+% # Integral. 29 marzo 2019, de MathWorks Sitio web:
+% https://es.mathworks.com/discovery/integral.html
+% # Limit. 29 marzo 2019, de MathWorks Sitio web: https://www.mathworks.com/help/symbolic/limit.html
+% # (2012). Juntas, pero no revueltas: sub-gráficas en una misma figura de Matlab . 29 marzo 2019, de 5 minutos de Matlab Sitio web: http://5minutosdematlab.blogspot.com/2012/09/juntas-pero-no-revueltas-sub-graficas.html
+%
+
+
+
+##### SOURCE END #####
+--></body></html>
